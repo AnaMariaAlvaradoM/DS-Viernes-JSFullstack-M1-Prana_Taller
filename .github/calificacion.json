@@ -1,0 +1,12 @@
+{
+  "curso": "🧘 Estudio Prana · Taller de API",
+  "fechaLimite": "",
+  "patronTest": "^test\\(",
+  "entregables": ["src/"],
+  "protegidos": ["tests/", "scripts/", ".github/", "enunciados/", "package.json", "package-lock.json"],
+  "ejercicios": [
+    { "id": "01", "titulo": "F1 · Salud de la API", "test": "tests/01-salud.test.js" },
+    { "id": "02", "titulo": "F1 · Catálogo de clases", "test": "tests/02-catalogo.test.js" },
+    { "id": "03", "titulo": "F1 · Clase por id", "test": "tests/03-clase-por-id.test.js" }
+  ]
+}
