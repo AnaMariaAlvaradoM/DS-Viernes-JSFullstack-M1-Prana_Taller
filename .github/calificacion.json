@@ -2,11 +2,17 @@
   "curso": "🧘 Estudio Prana · Taller de API",
   "fechaLimite": "",
   "patronTest": "^test\\(",
-  "entregables": ["src/"],
+  "entregables": ["src/", "postman/"],
   "protegidos": ["tests/", "scripts/", ".github/", "enunciados/", "package.json", "package-lock.json"],
   "ejercicios": [
     { "id": "01", "titulo": "F1 · Salud de la API", "test": "tests/01-salud.test.js" },
     { "id": "02", "titulo": "F1 · Catálogo de clases", "test": "tests/02-catalogo.test.js" },
-    { "id": "03", "titulo": "F1 · Clase por id", "test": "tests/03-clase-por-id.test.js" }
+    { "id": "03", "titulo": "F1 · Clase por id", "test": "tests/03-clase-por-id.test.js" },
+    { "id": "04", "titulo": "F2 · Arquitectura en capas", "test": "tests/04-arquitectura.test.js" },
+    { "id": "05", "titulo": "F2 · Crear inscripción", "test": "tests/05-crear-inscripcion.test.js" },
+    { "id": "06", "titulo": "F2 · Ver inscripciones", "test": "tests/06-consultar-inscripciones.test.js" },
+    { "id": "07", "titulo": "F2 · Cambiar estado", "test": "tests/07-cambiar-estado.test.js" },
+    { "id": "08", "titulo": "F2 · Eliminar inscripción", "test": "tests/08-eliminar-inscripcion.test.js" },
+    { "id": "09", "titulo": "F2 · Colección de Postman", "test": "tests/09-coleccion-postman.test.js" }
   ]
 }

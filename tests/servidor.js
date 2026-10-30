@@ -87,12 +87,17 @@ process.on("SIGTERM", () => {
   process.exit(1);
 });
 
-export async function pedir(ruta) {
+// opciones (Fase 2 en adelante): { metodo: "POST", cuerpo: { ... } }. Sin opciones hace un GET.
+export async function pedir(ruta, opciones = {}) {
   if (problema) throw new Error(problema);
+  const metodo = opciones.metodo || "GET";
+  const configuracion = { method: metodo, signal: AbortSignal.timeout(TIEMPO_RESPUESTA_MS) };
+  if (opciones.cuerpo !== undefined) {
+    configuracion.headers = { "Content-Type": "application/json" };
+    configuracion.body = JSON.stringify(opciones.cuerpo);
+  }
   try {
-    const respuesta = await fetch(`http://localhost:${PUERTO}${ruta}`, {
-      signal: AbortSignal.timeout(TIEMPO_RESPUESTA_MS),
-    });
+    const respuesta = await fetch(`http://localhost:${PUERTO}${ruta}`, configuracion);
     const texto = await respuesta.text();
     let cuerpo = null;
     try {
@@ -103,7 +108,7 @@ export async function pedir(ruta) {
     return { status: respuesta.status, tipo: respuesta.headers.get("content-type") || "", cuerpo };
   } catch (error) {
     if (error.name === "TimeoutError") {
-      throw new Error(`GET ${ruta} no respondió en 3 segundos: ¿a esa ruta le falta responder con res.json(...)?`);
+      throw new Error(`${metodo} ${ruta} no respondió en 3 segundos: ¿a esa ruta le falta responder con res.json(...)?`);
     }
     throw new Error(`No pude conectarme a tu servidor (${error.message}).`);
   }

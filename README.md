@@ -31,11 +31,11 @@ El taller crece clase a clase. Cada fase nueva llega a este mismo repositorio y 
 | Fase | Qué construyes | Enunciado |
 |---|---|---|
 | 1 | Salud de la API, catálogo de clases y clase por id | `enunciados/fase-1.md` |
-| 2 | Llega después de la Clase 2 | — |
+| 2 | Arquitectura en capas, CRUD de inscripciones y colección de Postman | `enunciados/fase-2.md` |
 | 3 | Llega después de la Clase 3 | — |
 | 4 | Llega después de la Clase 4 | — |
 
-Tu código va en la carpeta `src/`. El archivo de arranque es `src/index.js`.
+Tu código va en la carpeta `src/` y, desde la Fase 2, tu colección de Postman va en `postman/`. El archivo de arranque siempre es `src/index.js`.
 
 ---
 
@@ -90,7 +90,7 @@ npm install
 
 ### Dónde escribes
 
-En `src/index.js`. Lee primero el enunciado de la fase en la carpeta `enunciados/`.
+En la carpeta `src/` (en la Fase 1, todo en `src/index.js`; desde la Fase 2, repartido en capas) y, desde la Fase 2, la colección en `postman/`. Lee primero el enunciado de la fase en la carpeta `enunciados/`.
 
 ### Las tres reglas de oro
 
@@ -229,6 +229,18 @@ Revisa esa línea y las de arriba: paréntesis, llaves o comillas sin cerrar.
 ### "debería responder 200 (respondió 404: tu ruta dice que no existe…)"
 
 El `id` llega como texto en la URL. Conviértelo con `Number(...)` antes de comparar.
+
+### "respondió 500: tu servidor falló al leer el cuerpo"
+
+Te falta `app.use(express.json())` en `src/app.js`, antes de las rutas. Sin esa línea, `req.body` llega vacío.
+
+### "src/index.js solo enciende el servidor"
+
+Moviste el código a capas, pero dejaste rutas o `app.use` en `src/index.js`. Pásalos a `src/app.js` y a `src/routes/`.
+
+### "No encuentro tu colección"
+
+Exporta desde Postman como **Collection v2.1** y guarda el archivo `.json` dentro de la carpeta `postman/` del proyecto.
 
 ### "Please tell me who you are" al hacer commit
 
