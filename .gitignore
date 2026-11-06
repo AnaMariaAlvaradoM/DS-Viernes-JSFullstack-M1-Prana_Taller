@@ -2,5 +2,9 @@ node_modules/
 resultado.json
 notas.csv
 
+# Fase 3: tu contraseña de PostgreSQL vive en .env (nunca se sube) y el cliente de Prisma se genera con npx prisma generate
+.env
+/src/generated/prisma
+
 # Material privado de la profe (guía, solución y scripts): NO se sube al repo
 _docente/

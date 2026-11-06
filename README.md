@@ -31,11 +31,11 @@ El taller crece clase a clase. Cada fase nueva llega a este mismo repositorio y 
 | Fase | Qué construyes | Enunciado |
 |---|---|---|
 | 1 | Salud de la API, catálogo de clases y clase por id | `enunciados/fase-1.md` |
-| 2 | Llega después de la Clase 2 | — |
-| 3 | Llega después de la Clase 3 | — |
+| 2 | Arquitectura en capas, CRUD de inscripciones y colección de Postman | `enunciados/fase-2.md` |
+| 3 | PostgreSQL con Prisma, CRUD de clases, validaciones (400), regla del cupo (409) y errores centralizados | `enunciados/fase-3.md` |
 | 4 | Llega después de la Clase 4 | — |
 
-Tu código va en la carpeta `src/`. El archivo de arranque es `src/index.js`.
+Tu código va en la carpeta `src/` y, desde la Fase 2, tu colección de Postman va en `postman/`. Desde la Fase 3 también entregas `prisma/` (schema, migraciones y seed) y `.env.example`. El archivo de arranque siempre es `src/index.js`.
 
 ---
 
@@ -90,7 +90,7 @@ npm install
 
 ### Dónde escribes
 
-En `src/index.js`. Lee primero el enunciado de la fase en la carpeta `enunciados/`.
+En la carpeta `src/` (en la Fase 1, todo en `src/index.js`; desde la Fase 2, repartido en capas) y, desde la Fase 2, la colección en `postman/`. Lee primero el enunciado de la fase en la carpeta `enunciados/`.
 
 ### Las tres reglas de oro
 
@@ -194,7 +194,7 @@ Después de la fecha de cierre, los `git push` ya no cambian la nota. Si tu prim
 
 ## Archivos que NO debes modificar
 
-`tests/`, `scripts/`, `.github/`, `enunciados/`, `package.json` y `package-lock.json`.
+`tests/`, `scripts/`, `.github/`, `enunciados/`, `package.json`, `package-lock.json` y `prisma7.config.ts`.
 
 Si los modificas, tu PR queda con la etiqueta `⚠️ Revisar` y la profe lo revisa a mano. La nota se calcula igual, con los tests originales: cambiarlos no sube la nota.
 
@@ -229,6 +229,30 @@ Revisa esa línea y las de arriba: paréntesis, llaves o comillas sin cerrar.
 ### "debería responder 200 (respondió 404: tu ruta dice que no existe…)"
 
 El `id` llega como texto en la URL. Conviértelo con `Number(...)` antes de comparar.
+
+### "respondió 500: tu servidor falló al leer el cuerpo"
+
+Te falta `app.use(express.json())` en `src/app.js`, antes de las rutas. Sin esa línea, `req.body` llega vacío.
+
+### "src/index.js solo enciende el servidor"
+
+Moviste el código a capas, pero dejaste rutas o `app.use` en `src/index.js`. Pásalos a `src/app.js` y a `src/routes/`.
+
+### "No encuentro tu colección"
+
+Exporta desde Postman como **Collection v2.1** y guarda el archivo `.json` dentro de la carpeta `postman/` del proyecto.
+
+### "Falta el cliente de Prisma: corre npx prisma generate"
+
+El cliente de Prisma no se sube a GitHub: se genera en tu computador. Corre `npx prisma generate` en la carpeta del proyecto (y otra vez cada vez que cambies `schema.prisma`).
+
+### "respondió 500" en los ejercicios de la Fase 3
+
+Tu API no pudo hablar con la base. Revisa que PostgreSQL esté encendido, que `.env` tenga tu `DATABASE_URL` con la contraseña correcta y que hayas corrido `npx prisma migrate dev` y `npx prisma db seed`.
+
+### "GET /api/clases debería traer al menos 4 clases"
+
+La tabla de clases está vacía: corre `npx prisma db seed`. En GitHub lo corre solo, pero necesita tu `prisma/seed.js`.
 
 ### "Please tell me who you are" al hacer commit
 
