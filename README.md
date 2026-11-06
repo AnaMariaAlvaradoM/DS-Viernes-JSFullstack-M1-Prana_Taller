@@ -32,10 +32,10 @@ El taller crece clase a clase. Cada fase nueva llega a este mismo repositorio y 
 |---|---|---|
 | 1 | Salud de la API, catálogo de clases y clase por id | `enunciados/fase-1.md` |
 | 2 | Arquitectura en capas, CRUD de inscripciones y colección de Postman | `enunciados/fase-2.md` |
-| 3 | Llega después de la Clase 3 | — |
+| 3 | PostgreSQL con Prisma, CRUD de clases, validaciones (400), regla del cupo (409) y errores centralizados | `enunciados/fase-3.md` |
 | 4 | Llega después de la Clase 4 | — |
 
-Tu código va en la carpeta `src/` y, desde la Fase 2, tu colección de Postman va en `postman/`. El archivo de arranque siempre es `src/index.js`.
+Tu código va en la carpeta `src/` y, desde la Fase 2, tu colección de Postman va en `postman/`. Desde la Fase 3 también entregas `prisma/` (schema, migraciones y seed) y `.env.example`. El archivo de arranque siempre es `src/index.js`.
 
 ---
 
@@ -194,7 +194,7 @@ Después de la fecha de cierre, los `git push` ya no cambian la nota. Si tu prim
 
 ## Archivos que NO debes modificar
 
-`tests/`, `scripts/`, `.github/`, `enunciados/`, `package.json` y `package-lock.json`.
+`tests/`, `scripts/`, `.github/`, `enunciados/`, `package.json`, `package-lock.json` y `prisma7.config.ts`.
 
 Si los modificas, tu PR queda con la etiqueta `⚠️ Revisar` y la profe lo revisa a mano. La nota se calcula igual, con los tests originales: cambiarlos no sube la nota.
 
@@ -241,6 +241,18 @@ Moviste el código a capas, pero dejaste rutas o `app.use` en `src/index.js`. P�
 ### "No encuentro tu colección"
 
 Exporta desde Postman como **Collection v2.1** y guarda el archivo `.json` dentro de la carpeta `postman/` del proyecto.
+
+### "Falta el cliente de Prisma: corre npx prisma generate"
+
+El cliente de Prisma no se sube a GitHub: se genera en tu computador. Corre `npx prisma generate` en la carpeta del proyecto (y otra vez cada vez que cambies `schema.prisma`).
+
+### "respondió 500" en los ejercicios de la Fase 3
+
+Tu API no pudo hablar con la base. Revisa que PostgreSQL esté encendido, que `.env` tenga tu `DATABASE_URL` con la contraseña correcta y que hayas corrido `npx prisma migrate dev` y `npx prisma db seed`.
+
+### "GET /api/clases debería traer al menos 4 clases"
+
+La tabla de clases está vacía: corre `npx prisma db seed`. En GitHub lo corre solo, pero necesita tu `prisma/seed.js`.
 
 ### "Please tell me who you are" al hacer commit
 

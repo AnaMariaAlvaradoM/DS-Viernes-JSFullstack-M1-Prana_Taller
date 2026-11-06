@@ -38,6 +38,9 @@ function explicarCaida() {
     const donde = (texto.match(/(src\/[\w./-]+:\d+)/) || [])[1];
     return `Hay un error de sintaxis (SyntaxError)${donde ? " en " + donde : " en tu código"}: revisa paréntesis, llaves y comillas.`;
   }
+  if (/generated[\\/]prisma/.test(texto) && /ERR_MODULE_NOT_FOUND|Cannot find module/.test(texto)) {
+    return "Falta el cliente de Prisma: corre npx prisma generate en la carpeta del proyecto (se crea en src/generated/prisma).";
+  }
   if (/ERR_MODULE_NOT_FOUND/.test(texto)) {
     const linea = texto.split("\n").find((l) => /Cannot find/.test(l)) || "";
     return `Tu código importa algo que no existe: ${linea.trim()}`;
@@ -81,11 +84,44 @@ export function apagarServidor() {
   if (proceso && proceso.exitCode === null) proceso.kill();
 }
 
+// Fase 3: apaga tu servidor, espera a que el puerto quede libre y lo vuelve a encender.
+// Sirve para comprobar que los datos sobreviven a un reinicio.
+export async function reiniciarServidor() {
+  if (proceso && proceso.exitCode === null) {
+    const salida = new Promise((resolve) => proceso.once("exit", resolve));
+    proceso.kill();
+    await salida;
+  }
+  const inicio = Date.now();
+  while ((await puertoOcupado()) && Date.now() - inicio < ESPERA_MAXIMA_MS) {
+    await new Promise((r) => setTimeout(r, 100));
+  }
+  proceso = null;
+  salidaError = "";
+  problema = "";
+  await encenderServidor();
+}
+
 process.on("exit", apagarServidor);
 process.on("SIGTERM", () => {
   apagarServidor();
   process.exit(1);
 });
+
+// Lo que los tests crean con POST se borra al terminar (desde la Fase 3 los datos quedan en tu base).
+const creados = [];
+
+export async function limpiarYApagar() {
+  while (creados.length) {
+    const ruta = creados.pop();
+    await pedir(ruta, { metodo: "DELETE" }).catch(() => {});
+  }
+  apagarServidor();
+}
+
+// Pista para la Fase 3: un 500 casi siempre es la conexión con PostgreSQL.
+export const PISTA_BASE =
+  "¿PostgreSQL está encendido, tu .env tiene DATABASE_URL y corriste npx prisma migrate dev y npx prisma db seed?";
 
 // opciones (Fase 2 en adelante): { metodo: "POST", cuerpo: { ... } }. Sin opciones hace un GET.
 export async function pedir(ruta, opciones = {}) {
@@ -104,6 +140,9 @@ export async function pedir(ruta, opciones = {}) {
       cuerpo = JSON.parse(texto);
     } catch {
       cuerpo = null;
+    }
+    if (metodo === "POST" && respuesta.status === 201 && Number.isInteger(cuerpo?.id)) {
+      creados.push(`${ruta}/${cuerpo.id}`);
     }
     return { status: respuesta.status, tipo: respuesta.headers.get("content-type") || "", cuerpo };
   } catch (error) {

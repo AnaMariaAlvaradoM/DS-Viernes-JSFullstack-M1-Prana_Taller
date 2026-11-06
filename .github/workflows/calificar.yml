@@ -19,6 +19,22 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
+    # Fase 3: una base PostgreSQL vacía solo para esta calificación (se borra al terminar)
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_PASSWORD: calificar
+          POSTGRES_DB: prana
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://postgres:calificar@localhost:5432/prana
     steps:
       - name: Descargar tests, scripts y configuración oficiales (desde main)
         uses: actions/checkout@v7
@@ -53,8 +69,19 @@ jobs:
           node-version: 24
           package-manager-cache: false
 
-      - name: Instalar Express y las dependencias oficiales (desde main)
+      - name: Instalar Express, Prisma y las dependencias oficiales (desde main)
         run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Preparar la base de datos con Prisma (Fase 3)
+        # Si la entrega todavía no tiene prisma/ (fases 1 y 2), se salta y los tests siguen.
+        run: |
+          if [ -f prisma/schema.prisma ]; then
+            npx prisma generate || echo "::warning::No se pudo generar el cliente de Prisma"
+            npx prisma migrate deploy || echo "::warning::No se pudieron aplicar las migraciones"
+            npx prisma db seed || echo "::warning::No se pudo correr prisma/seed.js"
+          else
+            echo "La entrega no tiene prisma/schema.prisma todavía."
+          fi
 
       - name: Correr tests y calcular nota
         run: node scripts/calificar.cjs

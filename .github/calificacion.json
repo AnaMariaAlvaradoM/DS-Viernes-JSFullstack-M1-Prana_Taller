@@ -2,8 +2,8 @@
   "curso": "🧘 Estudio Prana · Taller de API",
   "fechaLimite": "",
   "patronTest": "^test\\(",
-  "entregables": ["src/", "postman/"],
-  "protegidos": ["tests/", "scripts/", ".github/", "enunciados/", "package.json", "package-lock.json"],
+  "entregables": ["src/", "postman/", "prisma/", ".env.example"],
+  "protegidos": ["tests/", "scripts/", ".github/", "enunciados/", "package.json", "package-lock.json", "prisma7.config.ts"],
   "ejercicios": [
     { "id": "01", "titulo": "F1 · Salud de la API", "test": "tests/01-salud.test.js" },
     { "id": "02", "titulo": "F1 · Catálogo de clases", "test": "tests/02-catalogo.test.js" },
@@ -13,6 +13,12 @@
     { "id": "06", "titulo": "F2 · Ver inscripciones", "test": "tests/06-consultar-inscripciones.test.js" },
     { "id": "07", "titulo": "F2 · Cambiar estado", "test": "tests/07-cambiar-estado.test.js" },
     { "id": "08", "titulo": "F2 · Eliminar inscripción", "test": "tests/08-eliminar-inscripcion.test.js" },
-    { "id": "09", "titulo": "F2 · Colección de Postman", "test": "tests/09-coleccion-postman.test.js" }
+    { "id": "09", "titulo": "F2 · Colección de Postman", "test": "tests/09-coleccion-postman.test.js" },
+    { "id": "10", "titulo": "F3 · Base de datos con Prisma", "test": "tests/10-base-de-datos.test.js" },
+    { "id": "11", "titulo": "F3 · Los datos sobreviven", "test": "tests/11-datos-persistentes.test.js" },
+    { "id": "12", "titulo": "F3 · CRUD de clases", "test": "tests/12-crud-clases.test.js" },
+    { "id": "13", "titulo": "F3 · Validaciones (400)", "test": "tests/13-validaciones.test.js" },
+    { "id": "14", "titulo": "F3 · Regla del cupo (409)", "test": "tests/14-regla-del-cupo.test.js" },
+    { "id": "15", "titulo": "F3 · Errores centralizados", "test": "tests/15-errores-centralizados.test.js" }
   ]
 }

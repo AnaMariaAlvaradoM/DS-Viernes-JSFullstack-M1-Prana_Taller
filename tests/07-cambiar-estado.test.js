@@ -1,9 +1,9 @@
 import test, { before, after } from "node:test";
 import assert from "node:assert/strict";
-import { encenderServidor, apagarServidor, pedir, mostrar } from "./servidor.js";
+import { encenderServidor, limpiarYApagar, pedir, mostrar } from "./servidor.js";
 
 before(encenderServidor);
-after(apagarServidor);
+after(limpiarYApagar);
 
 const ID_INEXISTENTE = 99999;
 
