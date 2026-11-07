@@ -7,7 +7,6 @@
 > Hola. Ya podemos ver el catálogo de clases desde cualquier celular, gracias.
 >
 > Ahora necesitamos registrar las inscripciones: quién se inscribe, a qué clase y con qué correo. Cada inscripción empieza pendiente y la confirmamos cuando la persona paga. Si alguien cancela, la marcamos como cancelada, y a veces hay que borrar una que se registró por error.
-
 En esta fase haces lo mismo que hicimos en clase con las citas de Agendia, pero para Prana: organizas el proyecto en capas y construyes el CRUD de las **inscripciones**, todavía en memoria.
 
 ---
