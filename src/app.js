@@ -6,7 +6,7 @@ const app = express();
 app.use(express.json());
 
 app.get('/api/salud', (req, res) =>{
-    res.json({ estado: 'ok', servicio: 'agendia-api' });
+    res.json({ estado: 'ok', servicio: 'prana-api' });
 });
 
 app.use('/api/clases', clasesRouter);

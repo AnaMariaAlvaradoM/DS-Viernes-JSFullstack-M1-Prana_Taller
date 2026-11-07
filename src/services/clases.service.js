@@ -9,6 +9,12 @@ export function listar() {
     return clases;
 }
 
+export function buscarPorId(id){
+    return clases.find((c) => c.id === id);
+
+}
+
+
 
 
 
