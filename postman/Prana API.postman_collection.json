@@ -1,0 +1,131 @@
+{
+  "info": {
+    "_postman_id": "188fea36-7aaa-4b95-995b-23cf528eb0d0",
+    "name": "Prana API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26954201"
+  },
+  "item": [
+    {
+      "name": "inscripción creada",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \r\n    \"claseId\": 2,\r\n    \"alumnoNombre\": \"Daniela Vargas\",\r\n    \"alumnoCorreo\": \"daniela.vargas@correo.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/inscripciones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "inscripciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "arreglo de inscripciones",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/inscripciones",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "inscripciones"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "buscar por id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/inscripciones/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "inscripciones",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "inscripción con el estado nuevo",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"estado\": \"CONFIRMADA\" }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/inscripciones/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "inscripciones",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Borrar inscripcion",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/inscripciones/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "inscripciones",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
