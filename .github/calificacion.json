@@ -2,7 +2,7 @@
   "curso": "🧘 Estudio Prana · Taller de API",
   "fechaLimite": "",
   "patronTest": "^test\\(",
-  "entregables": ["src/", "postman/", "prisma/", ".env.example"],
+  "entregables": ["src/", "postman/", "prisma/", ".env.example", "PROYECTO.md"],
   "protegidos": ["tests/", "scripts/", ".github/", "enunciados/", "package.json", "package-lock.json", "prisma7.config.ts"],
   "ejercicios": [
     { "id": "01", "titulo": "F1 · Salud de la API", "test": "tests/01-salud.test.js" },
@@ -19,6 +19,10 @@
     { "id": "12", "titulo": "F3 · CRUD de clases", "test": "tests/12-crud-clases.test.js" },
     { "id": "13", "titulo": "F3 · Validaciones (400)", "test": "tests/13-validaciones.test.js" },
     { "id": "14", "titulo": "F3 · Regla del cupo (409)", "test": "tests/14-regla-del-cupo.test.js" },
-    { "id": "15", "titulo": "F3 · Errores centralizados", "test": "tests/15-errores-centralizados.test.js" }
+    { "id": "15", "titulo": "F3 · Errores centralizados", "test": "tests/15-errores-centralizados.test.js" },
+    { "id": "16", "titulo": "F4 · Estructura de la IA", "test": "tests/16-estructura-ia.test.js" },
+    { "id": "17", "titulo": "F4 · Mensaje de bienvenida", "test": "tests/17-mensaje-bienvenida.test.js" },
+    { "id": "18", "titulo": "F4 · Fallos de la IA (503)", "test": "tests/18-fallos-ia.test.js" },
+    { "id": "19", "titulo": "F4 · PROYECTO.md", "test": "tests/19-proyecto-md.test.js" }
   ]
 }

@@ -33,9 +33,9 @@ El taller crece clase a clase. Cada fase nueva llega a este mismo repositorio y 
 | 1 | Salud de la API, catálogo de clases y clase por id | `enunciados/fase-1.md` |
 | 2 | Arquitectura en capas, CRUD de inscripciones y colección de Postman | `enunciados/fase-2.md` |
 | 3 | PostgreSQL con Prisma, CRUD de clases, validaciones (400), regla del cupo (409) y errores centralizados | `enunciados/fase-3.md` |
-| 4 | Llega después de la Clase 4 | — |
+| 4 | Mensaje de bienvenida con IA (OpenAI), fallos de la IA (503), refactor y `PROYECTO.md` | `enunciados/fase-4.md` |
 
-Tu código va en la carpeta `src/` y, desde la Fase 2, tu colección de Postman va en `postman/`. Desde la Fase 3 también entregas `prisma/` (schema, migraciones y seed) y `.env.example`. El archivo de arranque siempre es `src/index.js`.
+Tu código va en la carpeta `src/` y, desde la Fase 2, tu colección de Postman va en `postman/`. Desde la Fase 3 también entregas `prisma/` (schema, migraciones y seed) y `.env.example`, y en la Fase 4, `PROYECTO.md`. El archivo de arranque siempre es `src/index.js`.
 
 ---
 
@@ -262,6 +262,18 @@ Configura Git una sola vez:
 git config --global user.name "Tu Nombre"
 git config --global user.email "tu-correo@ejemplo.com"
 ```
+
+### "debería responder 503 (respondió 500…)" en la Fase 4
+
+El error de la IA llegó sin atrapar al middleware. En `ia.service.js`, envuelve la llamada en `try/catch` y lanza `new ErrorHttp(503, '...')`.
+
+### "Lo que le enviaste a la IA debería incluir…"
+
+Los datos del prompt deben salir de la base (la inscripción y su clase), no estar escritos a mano en el código.
+
+### "Encontré algo que parece una llave real de OpenAI"
+
+Tu llave quedó en el código o en `.env.example`. Muévela a `.env`, cámbiala en platform.openai.com y sube el cambio.
 
 ### Error 403 al hacer push
 
