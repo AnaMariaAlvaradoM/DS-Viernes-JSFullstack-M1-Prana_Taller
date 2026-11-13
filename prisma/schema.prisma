@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Clase {
+  id            Int           @id @default(autoincrement())
+  nombre        String
+  instructora   String
+  horario       String
+  cupo          Int
+  inscripciones Inscripcion[]
+}
+
+enum EstadoInscripcion {
+  PENDIENTE
+  CONFIRMADA
+  CANCELADA
+  ASISTIO
+}
+
+model Inscripcion {
+  id           Int               @id @default(autoincrement())
+  alumnoNombre String
+  alumnoCorreo String
+  estado       EstadoInscripcion @default(PENDIENTE)
+  claseId      Int
+  clase        Clase             @relation(fields: [claseId], references: [id])
+}

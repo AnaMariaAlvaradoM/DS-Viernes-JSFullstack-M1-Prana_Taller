@@ -1,0 +1,65 @@
+{
+  "info": {
+    "name": "Prana API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [{ "key": "base", "value": "http://localhost:3000" }],
+  "item": [
+    {
+      "name": "Salud",
+      "request": { "method": "GET", "url": "{{base}}/api/salud" }
+    },
+    {
+      "name": "Clases",
+      "item": [
+        { "name": "Listar clases", "request": { "method": "GET", "url": "{{base}}/api/clases" } },
+        { "name": "Ver clase", "request": { "method": "GET", "url": "{{base}}/api/clases/1" } },
+        {
+          "name": "Crear clase",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Yin yoga\",\n  \"instructora\": \"Marcela Díaz\",\n  \"horario\": \"Jueves 7:30 p. m.\",\n  \"cupo\": 8\n}" },
+            "url": "{{base}}/api/clases"
+          }
+        },
+        {
+          "name": "Actualizar clase",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Yin yoga\",\n  \"instructora\": \"Marcela Díaz\",\n  \"horario\": \"Jueves 8:00 p. m.\",\n  \"cupo\": 10\n}" },
+            "url": "{{base}}/api/clases/5"
+          }
+        },
+        { "name": "Eliminar clase", "request": { "method": "DELETE", "url": "{{base}}/api/clases/5" } }
+      ]
+    },
+    {
+      "name": "Inscripciones",
+      "item": [
+        {
+          "name": "Crear inscripción",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"claseId\": 2,\n  \"alumnoNombre\": \"Daniela Vargas\",\n  \"alumnoCorreo\": \"daniela.vargas@correo.com\"\n}" },
+            "url": "{{base}}/api/inscripciones"
+          }
+        },
+        { "name": "Listar inscripciones", "request": { "method": "GET", "url": "{{base}}/api/inscripciones" } },
+        { "name": "Ver inscripción", "request": { "method": "GET", "url": "{{base}}/api/inscripciones/1" } },
+        {
+          "name": "Confirmar inscripción",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"estado\": \"CONFIRMADA\"\n}" },
+            "url": "{{base}}/api/inscripciones/1"
+          }
+        },
+        { "name": "Eliminar inscripción", "request": { "method": "DELETE", "url": "{{base}}/api/inscripciones/1" } }
+      ]
+    }
+  ]
+}
