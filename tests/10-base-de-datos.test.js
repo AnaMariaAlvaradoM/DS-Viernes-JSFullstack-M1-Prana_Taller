@@ -40,8 +40,7 @@ test("la migración inicial está guardada en prisma/migrations", () => {
 });
 
 test("los services usan Prisma y no un arreglo en memoria", () => {
-  // Desde la Fase 4, ia.service.js habla con OpenAI y usa los otros services: no necesita Prisma.
-  const services = archivosDe("src/services").filter((archivo) => !archivo.endsWith("ia.service.js"));
+  const services = archivosDe("src/services");
   assert.ok(services.length >= 2, "No encuentro tus services en src/services/");
   for (const archivo of services) {
     const codigo = codigoSinComentarios(archivo);
